@@ -60,8 +60,17 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
     fetch(proxyLink + url)
       .then((res) => res.json())
       .then((res) => {
+        const meta: APIResponse = res.metadata;
         if (_isMounted.current) {
-          setMetadata((res.metadata as unknown) as APIResponse);
+          if (!!meta.image?.match(/https?:\/\//)) {
+            const url_ = new URL(image as string, url);
+            meta.image = url_.href;
+          }
+          if (meta.image == "https://rlp-proxy.herokuapp.com/img-placeholder.jpg") {
+            meta.image = null
+          };
+          console.log(meta)
+          setMetadata(meta);
           setLoading(false);
         }
       })
@@ -92,19 +101,12 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
   }
   
   const { image, description, title, siteName, hostname } = metadata;
-  let image_url: string | undefined;
-  if (image != "https://rlp-proxy.herokuapp.com/img-placeholder.jpg") {
-    if (!!image?.match(/https?:\/\//)) {
-      image_url = image;
-    } else {
-      const url_ = new URL(image as string, url);
-      image_url = url_.href;
-    }
-  };
 
   const onClick = () => {
     window.open(url, '_blank');
   };
+
+  console.log(image);
 
   return (
     <div
@@ -113,13 +115,13 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
       className={`Container ${className}`}
       style={{ width, height, borderRadius, textAlign, margin, backgroundColor, borderColor }}
     >
-      {image_url && (
+      {image && (
         <div
         data-testid='image-container'
         style={{
           borderTopLeftRadius: borderRadius,
           borderTopRightRadius: borderRadius,
-          backgroundImage: `url(${image_url})`,
+          backgroundImage: `url(${image})`,
           height: imageHeight,
         }}
         className='Image'
