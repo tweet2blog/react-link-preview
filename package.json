@@ -1,10 +1,10 @@
 {
-  "name": "@dhaiwat10/react-link-preview",
+  "name": "@journals/react-link-preview",
   "license": "MIT",
   "version": "0.0.0",
   "private": false,
   "description": "React library to preview links.",
-  "author": "Dhaiwat Pandya",
+  "author": "Dhaiwat Pandya, Alan Chen",
   "keywords": [
     "react",
     "react-link-preview",
