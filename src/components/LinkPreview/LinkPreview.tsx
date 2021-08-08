@@ -117,7 +117,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
         style={{
           borderTopLeftRadius: borderRadius,
           borderTopRightRadius: borderRadius,
-          backgroundImage: `url(${image})`,
+          backgroundImage: `url(${image_url})`,
           height: imageHeight,
         }}
         className='Image'
