@@ -95,6 +95,8 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
   let image_url: string | undefined;
   if (image != "https://rlp-proxy.herokuapp.com/img-placeholder.jpg") {
     if (!!image?.match(/https?:\/\//)) {
+      image_url = image;
+    } else {
       const url_ = new URL(image, url);
       image_url = url_.href;
     }
@@ -117,7 +119,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
         style={{
           borderTopLeftRadius: borderRadius,
           borderTopRightRadius: borderRadius,
-          backgroundImage: `url(${image})`,
+          backgroundImage: `url(${image_url})`,
           height: imageHeight,
         }}
         className='Image'
