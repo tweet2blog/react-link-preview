@@ -90,8 +90,15 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
   if (!metadata) {
     return <>{fallback}</>;
   }
-
+  
   const { image, description, title, siteName, hostname } = metadata;
+  let image_url: string | undefined;
+  if (image != "https://rlp-proxy.herokuapp.com/img-placeholder.jpg") {
+    if (!!image?.match(/https?:\/\//)) {
+      const url_ = new URL(image, url);
+      image_url = url_.href;
+    }
+  };
 
   const onClick = () => {
     window.open(url, '_blank');
@@ -104,7 +111,8 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
       className={`Container ${className}`}
       style={{ width, height, borderRadius, textAlign, margin, backgroundColor, borderColor }}
     >
-      <div
+      {image_url && (
+        <div
         data-testid='image-container'
         style={{
           borderTopLeftRadius: borderRadius,
@@ -114,6 +122,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
         }}
         className='Image'
       ></div>
+      )}
       <div className='LowerContainer'>
         <h3 data-testid='title' className='Title' style={{ color: primaryTextColor }}>
           {title}
