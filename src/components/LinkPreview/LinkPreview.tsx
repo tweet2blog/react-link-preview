@@ -97,7 +97,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
     if (!!image?.match(/https?:\/\//)) {
       image_url = image;
     } else {
-      const url_ = new URL(image, url);
+      const url_ = new URL(image as string, url);
       image_url = url_.href;
     }
   };
