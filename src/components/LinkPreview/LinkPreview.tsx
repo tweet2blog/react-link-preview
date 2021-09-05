@@ -63,7 +63,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({
         const meta: APIResponse = res.metadata;
         if (_isMounted.current) {
           if (!!meta.image?.match(/https?:\/\//)) {
-            const url_ = new URL(image as string, url);
+            const url_ = new URL(meta.image as string, url);
             meta.image = url_.href;
           }
           if (meta.image == "https://rlp-proxy.herokuapp.com/img-placeholder.jpg") {
